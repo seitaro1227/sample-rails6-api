@@ -33,5 +33,13 @@ module SampleCaEcRails
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+    config.generators do |generator|
+      generator.test_framework :rspec,
+        fixtures: false,
+        request_specs: true,
+        helper_specs: false,
+        routing_specs: false
+      generator.factory_bot true
+    end
   end
 end
