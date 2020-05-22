@@ -1,39 +1,32 @@
-# クリーンアーキテクチャをざっくり理解したいので作ったサンプル
-* クリーンアーキテクチャと言いつつそこまで業務分析を厳密に行ってはいないです。
-* セキュリティはガバガバです。
-* サーバサイドで注文レコードを作るだけです。
+# sample-rails6-api
+apiモードでnewしてrspecとfactory_botを設定したプロジェクト
 
-## とてもかんたんなECサイト
-注文APIと商品一覧APIだけ作成します。
+## 作成時のコマンド
+```
+bundle install --path=vendor/bundle
+bundle exec rails new ./ -B --api
+gibo dump rails  >> .gitignore
+bin/rails generate rspec:install
+bundle exec spring binstub rspec
+```
 
-### カート
-cookieで持つ
+## generatorsの設定
+config/application.rb
+```
+config.generators do |generator|
+  generator.test_framework :rspec,
+    fixtures: false,
+    request_specs: true,
+    helper_specs: false,
+    routing_specs: false
+  generator.factory_bot true
+end
+```
 
-### 商品
-商品idと商品名を返す
-個数(在庫)を持っている
-
-### 注文
-* 注文レコードを作る
-* ユーザーid, 商品, 個数を受け取る
-* 在庫がある時だけ注文を作成する
-* 注文を確定すると在庫を減らす
-* 配送先はユーザーごとに持っている
-
-### ユーザー
-名前と住所を持っている
-名前 注文者太郎
-住所1* 千葉県
-住所2* 松戸市六高台 33-4
-住所3 なんとかアパート 101
-
-### 配送先
-ユーザーごとに持っている
-
-### shop
-* 配送元
-
-### 配送業者
-* 配送元
-* 配送先
-* 送料
+## rename
+config/application.rb
+```
+module SampleRails6Api
+```
+## config/credentials.yml.enc
+https://railsguides.jp/security.html#%E7%8B%AC%E8%87%AA%E3%81%AEcredential
